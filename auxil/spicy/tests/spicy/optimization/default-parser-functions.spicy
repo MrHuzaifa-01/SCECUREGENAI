@@ -1,0 +1,21 @@
+# @TEST-EXEC: spicyc %INPUT -p -o noopt.hlt -g
+# @TEST-EXEC: btest-diff noopt.hlt
+
+# @TEST-EXEC: spicyc %INPUT -p -o opt.hlt -D optimizer 2>&1 | sort >log
+# @TEST-EXEC: btest-diff opt.hlt
+# @TEST-EXEC: btest-diff log
+
+# @TEST-DOC: Tests optimizations performing removal of unused parser functions added by default.
+
+module foo;
+
+type P0 = unit {};
+
+public type P1 = unit {};
+
+public type P2 = unit {
+    x: uint8;
+    y: uint8 {}
+
+    on %error {}
+};

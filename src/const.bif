@@ -1,0 +1,36 @@
+##! Declaration of various scripting-layer constants that the Zeek core uses
+##! internally.  Documentation and default values for the scripting-layer
+##! variables themselves are found in :doc:`/scripts/base/init-bare.zeek`.
+
+const packet_source_inactivity_timeout: interval;
+const allow_network_time_forward: bool;
+const ignore_keep_alive_rexmit: bool;
+const skip_http_data: bool;
+const use_conn_size_analyzer: bool;
+const detect_filtered_trace: bool;
+const report_gaps_for_partial: bool;
+const exit_only_after_terminate: bool;
+const digest_salt: string;
+const max_analyzer_violations: count;
+
+const io_poll_interval_default: count;
+const io_poll_interval_live: count;
+
+const FTP::max_command_length: count;
+
+const NFS3::return_data: bool;
+const NFS3::return_data_max: count;
+const NFS3::return_data_first_only: bool;
+
+const Tunnel::max_depth: count;
+const Tunnel::enable_ip: bool;
+const Tunnel::enable_ayiya: bool;
+const Tunnel::enable_teredo: bool;
+const Tunnel::enable_gtpv1: bool;
+const Tunnel::enable_gre: bool;
+const Tunnel::delay_teredo_confirmation: bool;
+const Tunnel::delay_gtp_confirmation: bool;
+const Tunnel::ip_tunnel_timeout: interval;
+const Tunnel::validate_vxlan_checksums: bool;
+
+const Threading::heartbeat_interval: interval;

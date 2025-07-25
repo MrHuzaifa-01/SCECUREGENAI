@@ -1,0 +1,8 @@
+# @TEST-EXEC: ${SPICYC} -p %INPUT
+
+module Foo;
+
+type Bar = unit {
+  a: uint8 &default=0;
+  var b: bytes = b"" + b"";
+};

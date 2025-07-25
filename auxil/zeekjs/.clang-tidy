@@ -1,0 +1,15 @@
+---
+Checks: '-*,
+         bugprone-*,
+         clang-analyzer-*,
+         clang-diagnostic-*,
+         modernize-*,
+         performance-*,
+         portability-*,
+
+         -modernize-use-trailing-return-type,
+         -bugprone-easily-swappable-parameters,
+         -clang-diagnostic-unused-command-line-argument,
+         '
+
+WarningsAsErrors: '*'

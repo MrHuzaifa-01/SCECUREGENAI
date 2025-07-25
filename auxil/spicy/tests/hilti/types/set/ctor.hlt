@@ -1,0 +1,13 @@
+# @TEST-EXEC: ${HILTIC} -j %INPUT >output
+# @TEST-EXEC: btest-diff output
+
+module Test {
+
+global value_ref<string> x = "foo"; # type that coerces to string
+assert set("foo", "bar") == set<string>(x, "bar");
+
+global auto i = 1;
+global auto j = 2;
+assert set(i, j) == set(1, 2);
+assert set<uint<64>>(i, j) == set(1, 2);
+}

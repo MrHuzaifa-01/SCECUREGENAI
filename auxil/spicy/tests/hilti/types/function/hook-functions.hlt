@@ -1,0 +1,36 @@
+# @TEST-EXEC: ${HILTIC} -j %INPUT | sort >output
+# @TEST-EXEC: btest-diff output
+
+module Foo {
+
+import hilti;
+
+hook void f1(string s) {
+    hilti::print("f1.a %s" % s);
+}
+
+hook void f1(string s) {
+    hilti::print("f1.b %s" % s);
+}
+
+hook void f1(string s) {
+    hilti::print("f1.c %s" % s);
+}
+
+hook optional<int<64>> f2() {
+    return Null;
+}
+
+hook optional<int<64>> f2() {
+    return 42;
+}
+
+hook optional<int<64>> f2() {
+    return Null;
+}
+
+
+f1("X");
+hilti::print(f2());
+
+}

@@ -1,0 +1,208 @@
+1.3.1 | 2023-09-06 07:07:55 +0200
+
+  * Release 1.3.1.
+
+1.3.0-41 | 2023-09-06 07:03:28 +0200
+
+  * Address a few pylint categories (Benjamin Bannier, Corelight)
+
+  * Make new dependency available to pylint pre-commit hook (Benjamin Bannier, Corelight)
+
+1.3.0-14 | 2023-08-31 08:00:18 +0200
+
+  * Add basic generic linters (Benjamin Bannier, Corelight)
+
+  * Use allow list for suppressed pylint warnings instead of ignoring them (Benjamin Bannier, Corelight)
+
+  * Run pylint via pre-commit hook (Benjamin Bannier, Corelight)
+
+  * Add `.git-blame-ignore-revs` file (Benjamin Bannier, Corelight)
+
+  * Format sources with black (Benjamin Bannier, Corelight)
+
+  * Remove manually implemented testing framework (Benjamin Bannier, Corelight)
+
+1.3.0-7 | 2023-08-30 13:23:27 -0700
+
+  * For Zeek-bundled installs, add Zeek's package tree to the search path (Christian Kreibich, Corelight)
+
+  * Add test to verify Zeek-bundled install's Python package locator. (Christian Kreibich, Corelight)
+
+  * Add a current working directory context guard to CLI tests (Christian Kreibich, Corelight)
+
+  * CI: Remove Python 3.7 from workflow (EOL); don't fail matrix quickly. (Christian Kreibich, Corelight)
+
+  * CI: Install websocket-client in Github test workflow (Christian Kreibich, Corelight)
+
+  * Test fixes: correct outdated comment and redundant environment tweak (Christian Kreibich, Corelight)
+
+1.3.0 | 2023-05-11 13:24:14 -0700
+
+  * Release 1.3.0.
+
+1.2.0-3 | 2023-05-11 13:21:23 -0700
+
+  * Relax Event validation (Arne Welzel, Corelight)
+
+1.2.0 | 2023-01-04 17:16:03 -0800
+
+  * Release 1.2.0.
+
+1.1.0-45 | 2023-01-04 17:15:51 -0800
+
+  * Expand workflow to also cover dist-building and PyPI upload (Christian Kreibich, Corelight)
+
+  * Add packaging setup (Christian Kreibich, Corelight)
+
+1.1.0-42 | 2023-01-04 17:15:26 -0800
+
+  * Add Python 3.11 to CI (Christian Kreibich, Corelight)
+
+  * Minor pylint-suggested cleanups (Christian Kreibich, Corelight)
+
+  * Refactor exception mocking in unit tests (Christian Kreibich, Corelight)
+
+  * Fix logic bug in counting connection attempts to the controller (Christian Kreibich, Corelight)
+
+  * Add unit test for refused connections when connecting to controller (Christian Kreibich, Corelight)
+
+1.1.0-36 | 2022-10-20 17:01:16 -0700
+
+  * Migrate the client to Broker's WebSocket transport (Christian Kreibich, Corelight)
+
+    - Update README.md to explain WebSocket use and compatibility
+    - Handle Controller exceptions during construction in cli.create_controller
+    - Add unit tests for the zeekclient.cli module
+    - Simplify unit-testing stdin/stdout in zeekclient.cli
+    - Make all types in zeekclient.types receivable and sendable
+    - Add help message for failing websocket package import
+    - Restructure imports layout to require submodules for nearly everything
+    - Edit pass over Controller class and its unit tests
+    - Expand unit tests to cover TLS modes
+    - Make zeekclient.config.Configuration resettable to initial defaults
+    - Add __eq__ and __hash__ for most Management framework types
+    - Add unit tests for the types module
+    - Rename poorly named unit test modules.
+    - Clarify the purpose of two sets of unit tests.
+    - Support TLS configurability in the controller object
+    - Add SSL helper module
+    - Switch default controller port to 2149, its websocket service
+    - Migrate tests to brokertypes
+    - Remove Broker from the package's __init__.py and restructure imports
+    - Remove Broker parts from zeek-client
+    - Migrate the controller module to websockets and brokertypes
+    - Migrate the cli, event, and type modules to brokertypes
+    - Add unit tests for brokertypes module
+    - Introduce brokertypes module
+    - Re-use the controller object in the deploy-config command
+    - Fix typos in docstrings
+    - Align event types with regular Broker types
+    - Make test-coverage makefile target show coverage details
+    - Add coveragerc file
+    - Ignore coverage data files in git
+
+1.1.0-5 | 2022-08-22 16:17:43 -0700
+
+  * Add unit tests for Controller.transact() (Christian Kreibich, Corelight)
+
+  * Switch the CLI command implementations to Controller.transact() (Christian Kreibich, Corelight)
+
+  * Expand Controller class with a helper for transactional event pairs (Christian Kreibich, Corelight)
+
+  * Fix typo in event argument name (Christian Kreibich, Corelight)
+
+1.1.0 | 2022-07-01 11:07:51 -0700
+
+  * Release 1.1.0.
+
+1.0.0-8 | 2022-07-01 11:07:04 -0700
+
+  * When a cluster node definition omits its instance, default to the local agent (Christian Kreibich, Corelight)
+
+  * When nodes omit instances in the config, ensure instances are absent entirely (Christian Kreibich, Corelight)
+
+  * Expand tests to cover new instance-free config support (Christian Kreibich, Corelight)
+
+  * Add test to cover new minimal, instance-free config behavior (Christian Kreibich, Corelight)
+
+  * Flesh out the README and add LICENSE (Christian Kreibich, Corelight)
+
+  * Remove duplicate test definition (Christian Kreibich, Corelight)
+
+  * Small log formatting tweak to be consistent in config setting naming (Christian Kreibich, Corelight)
+
+1.0.0 | 2022-06-23 12:17:11 -0700
+
+  * Add "restart" command to allow restarting a set of Zeek cluster nodes (Christian Kreibich, Corelight)
+
+  * Avoid installing anything but .py files in zeekclient directory (Christian Kreibich, Corelight)
+
+0.3.0-38 | 2022-06-22 22:31:35 -0700
+
+  * Rename the set-config command to stage-config (Christian Kreibich, Corelight)
+
+  * Simplification and robustness fixes to connection establishment and event retrieval (Christian Kreibich, Corelight)
+
+  * Add deploy-config command, chaining set-config and deploy (Christian Kreibich, Corelight)
+
+  * Add deploy command and adjust set-config (Christian Kreibich, Corelight)
+
+  * Expand get-config to support deployed vs staged configs (Christian Kreibich, Corelight)
+
+  * Minor logging tweak (Christian Kreibich, Corelight)
+
+  * Reflect Zeek-side result record updates (Christian Kreibich, Corelight)
+
+0.3.0-30 | 2022-06-21 16:55:12 -0700
+
+  * Tweak set-config results rendering for empty, successful agent responses (Christian Kreibich, Corelight)
+
+0.3.0-28 | 2022-06-14 12:11:00 -0700
+
+  * Allow skipping the instances section in config .ini files when redundant (Christian Kreibich, Corelight)
+
+  * Move verbosity into the config system (Christian Kreibich, Corelight)
+
+  * Move controller host/port from constants into the config system (Christian Kreibich, Corelight)
+
+  * Make CLI commands handle controller object instantiation themselves (Christian Kreibich, Corelight)
+
+0.3.0-23 | 2022-06-08 13:38:20 -0700
+
+  * Switch set-config result JSON format to that used by others (Christian Kreibich, Corelight)
+
+  * Permit missing port numbers in node configurations (Christian Kreibich, Corelight)
+
+0.3.0-20 | 2022-06-07 18:35:18 -0700
+
+  * Add unit-testing and CI  (Christian Kreibich, Corelight)
+
+    - Add Github action workflow to test the package
+    - Add code coverage when available
+    - Add tests for zeekclient.controller.Controller
+    - Add shim module to impersonate Broker Python bindings
+    - Add tests for zeekclient.config.Config
+    - Add tests for rendering data structures to/from JSON/INI
+    - Add pylinting via unittest
+
+  * Be more precise when parsing configurations (Christian Kreibich, Corelight)
+
+  * Minor tweaks in zeek-client (Christian Kreibich, Corelight)
+
+  * Allow specifying the output stream when configuring logging (Christian Kreibich, Corelight)
+
+  * Fix string handling error in environment variable parsing (Christian Kreibich, Corelight)
+
+  * Fix trailing colon in a controller error message (Christian Kreibich, Corelight)
+
+  * Pylint appeasement (Christian Kreibich, Corelight)
+
+  * Add gitignore file (Christian Kreibich, Corelight)
+
+0.3.0-5 | 2022-06-06 20:08:09 -0700
+
+  * Introduce update-changes to this repo (Christian Kreibich, Corelight)
+
+0.3.0-1 | 2022-06-06 10:10:50 -0700
+
+  * Starting CHANGES.

@@ -1,0 +1,7 @@
+#include <hu/arch.h>
+
+int
+main()
+{
+    return 0;
+}

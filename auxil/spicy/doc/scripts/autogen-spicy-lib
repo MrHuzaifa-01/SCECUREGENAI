@@ -1,0 +1,123 @@
+#!/bin/sh
+#
+# Copyright (c) 2020-2023 by the Zeek Project. See LICENSE for details.
+#
+# Preprocess lib/spicy.spicy for including its content into the
+# documentation.
+
+awk -v "target=$1" -v "ns=$2" '
+    # Collect comments.
+    /^##/    {
+              gsub("^## ?", "", $0);
+
+              if ( comment == "" )
+                  comment = $0;
+              else
+                  comment = comment "\n" $0;
+
+              next;
+            }
+
+    # Enums
+    /public type .* = enum { *$/ {
+        label=$3;
+
+        if ( target == "types" ) {
+            printf(".. _spicy_%s:\n\n", tolower(label));
+            printf(".. rubric:: ``%s::%s``\n\n", ns, label);
+            printf("%s\n\n", comment);
+            printf(".. spicy-code::\n\n");
+            printf("    type %s = enum {\n", $3);
+        }
+
+        comment = "";
+        next;
+        }
+
+    # Struct
+    /public type .* = struct { *$/ {
+        if ( target == "types" ) {
+            printf(".. _spicy_%s:\n\n", tolower($3));
+            printf(".. rubric:: ``%s::%s``\n\n", ns, $3);
+            printf("%s\n\n", comment);
+        }
+
+        comment = "";
+        next;
+        }
+
+    label != "" && /^ *}/ {
+        if ( target == "types" ) {
+            print "    };";
+            print "";
+        }
+
+        label = "";
+        next;
+        }
+
+    label != "" {
+        if ( target == "types" )
+            print "    " $0;
+        }
+
+    # Library types
+    /public type .* = __library_type/ {
+        if ( target == "types" ) {
+            printf(".. _spicy_%s:\n\n", tolower($3));
+            printf(".. rubric:: ``%s::%s``\n\n", ns, $3);
+            printf("%s\n\n", comment);
+        }
+
+        comment = "";
+        next;
+    }
+
+    # Units (for which we do not record member currently; and at least for filters we also do not wany to)
+    /(public )?type .* = unit/ {
+        unit = ($1 == "public" ? $3 : $2)
+        if ( target == "types" ) {
+            printf(".. _spicy_%s:\n\n", tolower(unit));
+            printf(".. rubric:: ``%s::%s``\n\n", ns, unit);
+            printf("%s\n\n::\n\n type %s = unit;\n\n", comment, unit);
+        }
+
+        comment = "";
+        next;
+    }
+
+    # Functions
+    /public function/ {
+        split($0, x, "[( ]+");
+        split($0, y, "[()]");
+        name = x[3];
+        args = y[2];
+
+        sub(/^[: ]+/, "", y[3]);
+        split(y[3], z, " &");
+        result = z[1];
+
+        if ( result ~ /void/ )
+            result = "";
+        else
+            result = " : " result;
+
+        postfix = ""
+        if ( name in functions )
+            postfix = sprintf("_%d", functions[name] + 1);
+
+        if ( target == "functions" ) {
+            printf(".. _spicy_%s%s:\n\n", name, postfix);
+            printf(".. rubric:: ``function %s::%s(%s)%s``\n\n", ns, name, args, result);
+            printf("%s\n\n", comment);
+        }
+
+        functions[name] = 1;
+        comment = "";
+        next;
+    }
+
+    # Clear state for anything left over. */
+    /^public/ { comment = ""; }
+
+'

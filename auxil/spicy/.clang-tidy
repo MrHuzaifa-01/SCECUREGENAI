@@ -1,0 +1,70 @@
+# Copyright (c) 2020-2023 by the Zeek Project. See LICENSE for details.
+
+---
+Checks: '
+  bugprone-*,
+  -bugprone-easily-swappable-parameters,
+  -bugprone-reserved-identifier,
+  -bugprone-branch-clone,
+  -bugprone-macro-parentheses,
+  -bugprone-lambda-function-name,
+  -bugprone-unchecked-optional-access,
+
+  cert-*,
+  -cert-dcl37-c,
+  -cert-dcl51-cpp,
+  -cert-err58-cpp,
+  -cert-dcl58-cpp,
+  -cert-dcl21-cpp,
+  -cert-err33-c,
+
+  clang*,
+  -clang-analyzer-cplusplus.NewDeleteLeaks,
+  -clang-diagnostic-c++2a-designator,
+  -clang-diagnostic-deprecated-copy,
+  -clang-diagnostic-range-loop-analysis,
+  -clang-analyzer-core.StackAddressEscape,
+
+  misc-*,
+  -misc-macro-parentheses,
+  -misc-non-private-member-variables-in-classes,
+  -misc-suspicious-semicolon,
+  -misc-no-recursion,
+  -misc-unused-parameters,
+  -misc-const-correctness,
+  -misc-confusable-identifiers,
+  -misc-const-correctness,
+  -misc-use-anonymous-namespace,
+
+  modernize-*,
+  -modernize-avoid-c-arrays,
+  -modernize-use-equals-default,
+  -modernize-use-nodiscard,
+  -modernize-use-trailing-return-type,
+  -modernize-return-braced-init-list,
+
+  performance-*,
+  portability-*,
+
+  readability-*,
+  -readability-braces-around-statements,
+  -readability-container-size-empty,
+  -readability-convert-member-functions-to-static,
+  -readability-else-after-return,
+  -readability-implicit-bool-conversion,
+  -readability-identifier-length,
+  -readability-magic-numbers,
+  -readability-make-member-function-const,
+  -readability-named-parameter,
+  -readability-qualified-auto,
+  -readability-function-cognitive-complexity,
+  -readability-function-size,
+  -readability-simplify-boolean-expr,
+  '
+
+HeaderFilterRegex: '(hilti|spicy)/[a-zA-Z]+/include/([a-zA-Z]+/)*[a-zA-Z]+\.h'
+WarningsAsErrors: '*'
+
+CheckOptions:
+      - key:             performance-unnecessary-value-param.AllowedTypes
+        value:           hilti::NodeRef

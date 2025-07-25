@@ -1,0 +1,32 @@
+# @TEST-EXEC: hiltic -j %INPUT >output
+# @TEST-EXEC: btest-diff output
+
+module Test {
+
+import hilti;
+
+type Foo = struct {
+    string x;
+    string y;
+
+    hook optional<string> __str__();
+};
+
+type Bar = struct {
+    string x;
+    string y;
+
+    hook optional<string> __str__(); # not implemented
+};
+
+hook optional<string> Foo::__str__() {
+    return self.x + "|" + self.y;
+}
+
+global Foo f = [$x="xxx", $y="yyy"];
+global Bar b = [$x="xxx", $y="yyy"];
+
+hilti::print(f);
+hilti::print(b);
+
+}

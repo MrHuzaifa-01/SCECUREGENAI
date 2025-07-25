@@ -1,0 +1,30 @@
+# @TEST-EXEC: echo == spicyc >>output
+# @TEST-EXEC: spicyc -c %INPUT | grep print >>output
+#
+# @TEST-EXEC: btest-diff output
+#
+# @TEST-DOC: Test various Spicy preprocessor constructs
+#
+# Same test is part of spicy-plugin as well, with different results.
+
+module Foo;
+
+@if SPICY_VERSION
+print "have spicy version";
+@endif
+
+@if SPICY_VERSION    >=    400
+print "have spicy version >= 0.4";
+@endif
+
+@if SPICY_VERSION >= 40000
+print "have spicy version >= 4";
+@endif
+
+@if ! SPICY_VERSION >= 40000
+print "not have spicy version >= 4";
+@endif
+
+@if    UNKNOWiN
+no valid Spicy syntax here.
+@endif

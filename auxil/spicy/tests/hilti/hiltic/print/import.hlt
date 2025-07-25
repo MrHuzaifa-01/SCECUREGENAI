@@ -1,0 +1,44 @@
+# @TEST-GROUP: no-jit
+# @TEST-EXEC: ${HILTIC} -g -c --cxx-enable-dynamic-globals foo.hlt bar.hlt >output
+# @TEST-EXEC: ${HILTIC} -l foo.hlt bar.hlt >>output
+# @TEST-EXEC: btest-diff output
+#
+# @TEST-EXEC: ${HILTIC} -g -c foo.hlt bar.hlt >output2
+# @TEST-EXEC: ${HILTIC} -l foo.hlt bar.hlt >>output2
+# @TEST-EXEC: btest-diff output2
+
+@TEST-START-FILE foo.hlt
+
+module Foo {
+
+import Bar;
+
+import hilti;
+
+public global string foo = "Foo!";
+
+hilti::print("Hello, world from Foo!");
+hilti::print(foo);
+hilti::print(Bar::bar);
+
+}
+
+@TEST-END-FILE
+
+@TEST-START-FILE bar.hlt
+
+module Bar {
+
+import Foo;
+
+import hilti;
+
+public global string bar = "Bar!";
+
+hilti::print("Hello, world from Bar!");
+hilti::print(Foo::foo);
+hilti::print(bar);
+
+}
+
+@TEST-END-FILE

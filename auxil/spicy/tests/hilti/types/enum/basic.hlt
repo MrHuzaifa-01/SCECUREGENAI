@@ -1,0 +1,90 @@
+# @TEST-EXEC: ${HILTIC} -dj %INPUT >output
+# @TEST-EXEC: btest-diff output
+
+module Foo {
+
+import hilti;
+
+type X = enum {
+    A1 = 1,
+    A2
+};
+
+type Y = enum {
+    B1,
+    B2, # Optional trailing `,`.
+};
+
+type Z = struct {
+    X x1;
+    X x2 &optional;
+    Y y1 &optional &default=Y::B1;
+};
+
+global X x = X::A1;
+global Y y;
+global Z z;
+
+hilti::print(x);
+hilti::print(y);
+hilti::print(X::A1);
+hilti::print(Y::B2);
+hilti::print(z);
+
+# Coercion to bool
+assert x;
+assert !y;
+assert X::A1;
+assert !X::Undef;
+assert x && X::A1 ;
+
+# has_label()
+global X no_label = X(42);
+hilti::print(no_label);
+assert x.has_label();
+assert ! y.has_label();
+assert ! no_label.has_label();
+
+# Passing back from function
+function vector<X> x1() {
+    return [];
+}
+
+function vector<X> x2() {
+    return vector<X>();
+}
+
+function vector<X> x3() {
+    return [X::A1, X::A2];
+}
+
+
+hilti::print(x1());
+hilti::print(x2());
+hilti::print(x3());
+
+# Always initialized as Undef.
+global X u1;
+assert u1 == X::Undef;
+
+global tuple<X> u2;
+assert u2 == (X::Undef, );
+
+global vector<X> u3;
+u3.resize(1);
+assert u3[0] == X::Undef;
+
+
+# Check normalization of labels and values.
+type E = enum {
+    NULL,
+};
+global E e = E::NULL;
+hilti::print(e);
+
+type NULL = enum {
+    ONE,
+};
+global n = NULL::ONE;
+hilti::print(n);
+}

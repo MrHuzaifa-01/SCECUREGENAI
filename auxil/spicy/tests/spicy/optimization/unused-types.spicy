@@ -1,0 +1,53 @@
+# @TEST-EXEC: spicyc %INPUT -p -o noopt.hlt -g
+# @TEST-EXEC: btest-diff noopt.hlt
+#
+# @TEST-EXEC: spicyc %INPUT -p -o opt.hlt -D optimizer 2>&1 | sort >log
+# @TEST-EXEC: btest-diff opt.hlt
+# @TEST-EXEC: btest-diff log
+
+# @TEST-DOC: Tests that unused types are removed.
+
+module foo;
+
+# Unreferenced private units should be removed.
+type Priv1 = unit {};
+
+# Referenced public units should be kept.
+public type Pub2 = unit {};
+
+# Units referenced only by unreferenced private units should be removed.
+type Priv2 = unit {};
+type Priv3 = unit {};
+type Priv4 = unit {
+    : Priv2;
+    x: Priv3;
+};
+
+# Units referenced by public units should be kept.
+type Priv5 = unit {};
+type Priv6 = unit {};
+public type Pub3 = unit {
+    : Priv5;
+    x: Priv6;
+};
+
+# Private enum types should be removed.
+type Priv7 = enum { A, B, C };
+
+# Public enum types should be kept.
+public type Pub4 = enum { A, B, C };
+
+# Values of private enums referenced in public types should not be removed.
+type Priv8 = enum { A, B, C };
+type Priv9 = enum { A, B, C };
+public type Priv10 = unit {
+    var en: Priv8 = Priv8::A;
+    var em: Priv9;
+};
+
+# Values of private enums used in globals should not be removed.
+type Priv11 = enum { A, B, C };
+global en: Priv11;
+
+type Priv12 = enum { A, B, C };
+global em: Priv12 = Priv12::A;

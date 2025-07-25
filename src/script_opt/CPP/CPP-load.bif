@@ -1,0 +1,35 @@
+##! Definitions of built-in functions related to loading compiled-to-C++
+##! scripts.
+
+
+%%{ // C segment
+
+#include <cinttypes>
+#
+#include "zeek/Reporter.h"
+#include "zeek/script_opt/ScriptOpt.h"
+#include "zeek/script_opt/CPP/Func.h"
+
+%%}
+
+## Activates the compile-to-C++ scripts associated with the given hash.
+##
+## h: Hash of the set of C++ scripts.
+##
+## Returns: True if it was present and loaded, false if not.
+##
+function load_CPP%(h: count%): bool
+	%{
+	auto cb = detail::standalone_callbacks.find(h);
+
+	if ( cb == detail::standalone_callbacks.end() ||
+	     ! detail::CPP_init_hook )
+		{
+		reporter->Error("load of non-existing C++ code (%" PRIu64 ")", h);
+		return zeek::val_mgr->False();
+		}
+
+	(*cb->second)();
+
+	return zeek::val_mgr->True();
+	%}

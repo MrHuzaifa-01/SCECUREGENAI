@@ -1,0 +1,18 @@
+---
+  Checks: -*,
+          bugprone-*,
+          clang-analyzer-*,
+          modernize-*,
+          performance-*,
+          -bugprone-easily-swappable-parameters,
+          -clang-analyzer-cplusplus.NewDeleteLeaks,
+          -clang-analyzer-security.insecureAPI.rand,
+          -clang-analyzer-webkit*,
+          -modernize-avoid-c-arrays,
+          -modernize-macro-to-enum,
+          -modernize-use-equals-default,
+          -modernize-use-nodiscard,
+          -modernize-use-trailing-return-type,
+  WarningsAsErrors: '*'
+  HeaderFilterRegex: 'broker/.*.hh'
+...

@@ -1,0 +1,21 @@
+# Automatically generated; edit in Sphinx source code, not here.
+module Test;
+
+public type Foo = unit {
+    on %init() { self.start = self.input(); }
+
+    a: A { self.set_input(self.start); }
+    b: B;
+
+    on %done() { print self; }
+
+    var start: iterator<stream>;
+};
+
+type A = unit {
+    x: uint32;
+};
+
+type B = unit {
+    y: bytes &size=4;
+};

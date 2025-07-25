@@ -1,0 +1,32 @@
+# @TEST-EXEC-FAIL: hiltic -j %INPUT >output 2>&1
+# @TEST-EXEC:      btest-diff output
+#
+# @TEST-DOC: Catch various wrong "finally" declarations.
+
+module Foo {
+
+type X = struct {
+    method void ~finally();
+};
+
+}
+
+@TEST-START-NEXT
+
+module Foo {
+
+type X = struct {
+    hook optional<string> ~finally();
+};
+
+}
+
+@TEST-START-NEXT
+
+module Foo {
+
+type X = struct {
+    hook void ~finally(string s);
+};
+
+}

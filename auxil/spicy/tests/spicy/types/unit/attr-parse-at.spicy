@@ -1,0 +1,32 @@
+# @TEST-EXEC:  printf 1234567890 | spicy-driver -d %INPUT >output
+# @TEST-EXEC:  btest-diff output
+
+module Mini;
+
+type Foo = unit {
+    all: bytes &size=10;
+};
+
+type Bar = unit {
+    all: bytes &eod;
+};
+
+function get_input(t: test) : iterator<stream> {
+    print "get_input"; # we want this printed only once (regression test for https://github.com/zeek/spicy-pe/issues/16)
+    return t.input();
+}
+
+public type test = unit {
+    a: bytes &size=4;
+    b: bytes &size=4;
+
+    C: Foo &parse-at=self.input();
+    D: Bar &parse-at=get_input(self) &size=5;
+
+    d: bytes &size=2;
+
+    on %done {
+        print self.a, self.b, self.C.all, self.D.all, self.d;
+        }
+
+};

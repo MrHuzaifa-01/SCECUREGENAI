@@ -1,0 +1,15 @@
+# @TEST-EXEC-FAIL: ${HILTIC} -j %INPUT
+# @TEST-EXEC: grep -q "__does_not_exist" .stderr
+#
+# Check that a failure at the system link stage doesn't produce leaks or other
+# unexpected output. Because the actual output depends on the underlying
+# compiler, we just check for a keyword being in there.
+
+module Test {
+
+# hilti::rt::__does_not_exist is declared in the runtime library's header, but not implemented.
+declare public time does_not_exist() &cxxname="hilti::rt::__does_not_exist";
+
+does_not_exist();
+
+}

@@ -1,0 +1,14 @@
+hilti/runtime/include                                       hilti/runtime/src
+hilti/toolchain/bin
+hilti/toolchain/include                                     hilti/toolchain/src
+hilti/toolchain/include/compiler/detail                     hilti/toolchain/src/compiler
+hilti/toolchain/include/compiler/detail/codegen/codegen.h   hilti/toolchain/src/compiler/codegen
+hilti/toolchain/include/compiler/detail/visitors.h          hilti/toolchain/src/compiler/visitors
+
+spicy/runtime/include                                       spicy/runtime/src
+spicy/toolchain/bin
+spicy/toolchain/bin/spicy-dump                              spicy/bin/spicy-dump
+spicy/toolchain/include                                     spicy/toolchain/src
+spicy/toolchain/include/compiler                            spicy/toolchain/src/compiler
+spicy/toolchain/include/compiler/detail                     spicy/toolchain/src/compiler
+spicy/toolchain/include/compiler/detail/visitors.h          spicy/toolchain/src/compiler/visitors

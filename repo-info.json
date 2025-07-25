@@ -1,0 +1,185 @@
+{
+  "branch": "release/6.0",
+  "commit": "5fef9d421d9dac147435f66584c845f35c79dfe4",
+  "describe": "v6.0.5",
+  "dirty": false,
+  "included_plugins": [],
+  "name": "zeek",
+  "source": "git",
+  "submodules": [
+    {
+      "commit": "52e1f5a61f52a3a40470216d6b16913af6120334",
+      "describe": "v1.8.0",
+      "dirty": false,
+      "path": "auxil/bifcl",
+      "version": "1.8.0"
+    },
+    {
+      "commit": "06d7ced8a18bdf26b545f0b90d54aeb2f7d87913",
+      "describe": "v0.61.0",
+      "dirty": false,
+      "path": "auxil/binpac",
+      "version": "0.61.0"
+    },
+    {
+      "commit": "991832f2aa0aeb64803c23559c466704bfe72aff",
+      "describe": "v2.6.0-9-g991832f2",
+      "dirty": false,
+      "path": "auxil/broker",
+      "version": "2.6.0"
+    },
+    {
+      "commit": "46f982cd6fafd34639c2f97628a57f1457f7e56a",
+      "describe": "v1.1",
+      "dirty": false,
+      "path": "auxil/btest",
+      "version": "1.1"
+    },
+    {
+      "commit": "2aa086f822aad5017a6f2061ef656f237a62d0ed",
+      "describe": "cares-1_18_1",
+      "dirty": false,
+      "path": "auxil/c-ares"
+    },
+    {
+      "commit": "72a76d774e4c7c605141fd6d11c33cc211209ed9",
+      "describe": "v1.1.2-405-g72a76d7",
+      "dirty": false,
+      "path": "auxil/filesystem"
+    },
+    {
+      "commit": "16841c95849d4d82f239bfb0c46bc217af368da2",
+      "describe": "heads/master",
+      "dirty": false,
+      "path": "auxil/gen-zam",
+      "version": "1.0.0"
+    },
+    {
+      "commit": "5ad3bf8444cfc663b11bf367baaa31f36e7ff7c8",
+      "describe": "remotes/origin/topic/awelzel/fix-guest-without-osxsave-1-g5ad3bf8",
+      "dirty": false,
+      "path": "auxil/highwayhash"
+    },
+    {
+      "commit": "10d93cff9fd6c8d8c3e0bae58312aed470843ff8",
+      "describe": "v2.4.0-291-g10d93cf",
+      "dirty": false,
+      "path": "auxil/libkqueue"
+    },
+    {
+      "commit": "b38e9c8ebff08959a712a5663ba25e0624a3af00",
+      "describe": "remotes/origin/HEAD",
+      "dirty": false,
+      "path": "auxil/libunistd"
+    },
+    {
+      "commit": "e7643a319d36fc32573cb99b363040342f9d8e03",
+      "describe": "v0.6-2-ge7643a3",
+      "dirty": false,
+      "path": "auxil/netcontrol-connectors",
+      "version": "0.6"
+    },
+    {
+      "commit": "ea379b2f35e28d6ee894e05ad4c26ed60a613d30",
+      "describe": "ea379b2",
+      "dirty": false,
+      "path": "auxil/out_ptr"
+    },
+    {
+      "commit": "d11b78bfb324d64a24249a5f21e84cea1388ce6b",
+      "describe": "v2.14.0",
+      "dirty": false,
+      "path": "auxil/package-manager",
+      "version": "2.14.0"
+    },
+    {
+      "commit": "45ce017874aac9ffabac0ddc4d016f1747804234",
+      "describe": "v0.6.0-11-g45ce017",
+      "dirty": false,
+      "path": "auxil/paraglob",
+      "version": "0.6.0-8"
+    },
+    {
+      "commit": "06d58b9e848c650114556a23294d0b6440078c61",
+      "describe": "v1.1.0-709-g06d58b9e",
+      "dirty": false,
+      "path": "auxil/rapidjson"
+    },
+    {
+      "commit": "08b1c087b868e54171fb59940c0412aa3ce43387",
+      "describe": "v1.8.4",
+      "dirty": false,
+      "path": "auxil/spicy",
+      "version": "1.8.4"
+    },
+    {
+      "commit": "acd8e365c652ea6113b70fbbb1339d42e496819d",
+      "describe": "4.0.0-19-gacd8e36",
+      "dirty": false,
+      "path": "auxil/zeek-af_packet-plugin",
+      "version": "4.0.0"
+    },
+    {
+      "commit": "e36862b3a6e70bf8557885e12e74cbc91507a693",
+      "describe": "v0.7.0-40-ge36862b",
+      "dirty": false,
+      "path": "auxil/zeek-archiver",
+      "version": "0.7.0-40"
+    },
+    {
+      "commit": "98e5bd2a4c6c23f6bc3a70bdfe26d17c084c8ab6",
+      "describe": "v0.50-8-g98e5bd2",
+      "dirty": false,
+      "path": "auxil/zeek-aux",
+      "version": "0.50-5"
+    },
+    {
+      "commit": "6c8cb3e1c475424880eae968f812805fdbd95cea",
+      "describe": "v1.3.1",
+      "dirty": false,
+      "path": "auxil/zeek-client",
+      "version": "1.3.1"
+    },
+    {
+      "commit": "1355908ddfa8682a5ab365d8726a60086863ba8e",
+      "describe": "v2.5.0-29-g1355908",
+      "dirty": false,
+      "path": "auxil/zeekctl",
+      "version": "2.5.0-24"
+    },
+    {
+      "commit": "b3e5de0aa5fb386318709c81eb364e81c696af14",
+      "describe": "v0.9.6",
+      "dirty": false,
+      "path": "auxil/zeekjs",
+      "version": "0.9.6"
+    },
+    {
+      "commit": "9de9d01bbd034a5506fb04463c328775d3f09f57",
+      "describe": "release-260-g9de9d01",
+      "dirty": false,
+      "path": "cmake"
+    },
+    {
+      "commit": "1786c96759f4dc02286cbbe7817017a7d18d427d",
+      "describe": "v6.0.5",
+      "dirty": false,
+      "path": "doc"
+    },
+    {
+      "commit": "410ada8bbe5839807a459a99c1b77221f790f1be",
+      "describe": "release-92-g410ada8",
+      "dirty": false,
+      "path": "src/3rdparty"
+    }
+  ],
+  "version": "6.0.5",
+  "zkg": {
+    "provides": [
+      {
+        "name": "spicy-plugin",
+        "version": "6.0.5"
+      }
+    ]
+  }
+}

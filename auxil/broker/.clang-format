@@ -1,0 +1,41 @@
+﻿---
+AccessModifierOffset: '-2'
+AlignAfterOpenBracket: Align
+AlignEscapedNewlines: Right
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: 'false'
+AlwaysBreakAfterReturnType: None
+AlwaysBreakTemplateDeclarations: 'Yes'
+BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeBraces: Attach
+BreakBeforeTernaryOperators: 'true'
+BreakConstructorInitializers: BeforeColon
+BreakInheritanceList: BeforeColon
+ColumnLimit: '80'
+ConstructorInitializerAllOnOneLineOrOnePerLine: 'true'
+ConstructorInitializerIndentWidth: '2'
+ContinuationIndentWidth: '2'
+Cpp11BracedListStyle: 'true'
+FixNamespaceComments: 'true'
+IncludeBlocks: Preserve
+IndentCaseLabels: 'true'
+IndentPPDirectives: AfterHash
+IndentWidth: '2'
+KeepEmptyLinesAtTheStartOfBlocks: 'false'
+Language: Cpp
+MacroBlockBegin: ^BEGIN_STATE$|CAF_BEGIN_TYPE_ID_BLOCK
+MacroBlockEnd: ^END_STATE$|CAF_END_TYPE_ID_BLOCK
+MaxEmptyLinesToKeep: '1'
+NamespaceIndentation: None
+PenaltyBreakAssignment: '21'
+PenaltyBreakBeforeFirstCallParameter: '60'
+PenaltyReturnTypeOnItsOwnLine: '50'
+PointerAlignment: Left
+SpaceAfterCStyleCast: 'true'
+SpaceBeforeParens: ControlStatements
+SpacesBeforeTrailingComments: '1'
+Standard: Cpp11
+UseTab: Never
+
+...

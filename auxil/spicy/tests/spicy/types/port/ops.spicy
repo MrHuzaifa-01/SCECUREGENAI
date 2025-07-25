@@ -1,0 +1,17 @@
+# @TEST-EXEC: ${SPICYC} -j %INPUT >output
+# @TEST-EXEC: btest-diff output
+#
+# Just basic functionality tests, more on the HILTI side.
+
+module Test;
+
+import spicy;
+
+global p1 = 80/tcp;
+global p2 = 123/udp;
+global p3 = port(1, spicy::Protocol::TCP);
+
+print p1;
+print p2;
+print p3;
+assert p1.protocol() == spicy::Protocol::TCP;

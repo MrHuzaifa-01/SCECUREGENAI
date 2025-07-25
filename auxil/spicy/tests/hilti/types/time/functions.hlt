@@ -1,0 +1,14 @@
+# @TEST-EXEC: TZ=C ${HILTIC} -j %INPUT >output
+# @TEST-EXEC: btest-diff output
+
+module Test {
+
+import hilti;
+
+global t = hilti::current_time();
+assert t > time(1564617600) && t < time(1893456000);
+
+t = hilti::mktime(2021, 4, 1, 1, 2, 3);
+assert t == time(1617238923);
+
+}

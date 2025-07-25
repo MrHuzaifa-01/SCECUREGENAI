@@ -1,0 +1,32 @@
+# @TEST-EXEC: spicyc %INPUT -p -o noopt.hlt -g
+# @TEST-EXEC: btest-diff noopt.hlt
+
+# @TEST-EXEC: spicyc %INPUT -p -o opt.hlt -D optimizer 2>&1 | sort >log
+# @TEST-EXEC: btest-diff opt.hlt
+# @TEST-EXEC: btest-diff log
+
+# @TEST-DOC: Tests that unused methods of units are removed.
+
+module foo;
+
+# Unused private functions should be removed.
+function f1() {}
+
+# Unused public functions should be kept.
+public function f2() {}
+# Unused members of private units should removed.
+type A = unit {};
+
+# For public units we should only removed unimplemented hooks.
+public type B = unit {};
+
+# Any unused members of of used private units should be removed.
+type C = unit {};
+public type D = unit {
+    : C;
+};
+
+# Parsing methods of filters should not be optimized out.
+type F = unit {
+    %filter;
+};

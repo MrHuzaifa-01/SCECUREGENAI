@@ -1,0 +1,32 @@
+# @TEST-EXEC: hiltic %INPUT -p -o noopt.hlt -g
+# @TEST-EXEC: btest-diff noopt.hlt
+#
+# @TEST-EXEC: hiltic %INPUT -p -o opt.hlt -D optimizer 2>&1 | sort > log
+# @TEST-EXEC: btest-diff opt.hlt
+# @TEST-EXEC: btest-diff log
+
+# @TEST-DOC: Tests optimizations removing unused functions.
+
+module Foo {
+
+# Module-level unused functions should get optimized out. Removal happens in
+# stages, so functions called by unused functions can also be removed.
+function bool private_unused() { return False; }
+function bool private_unused1() { return private_unused(); }
+
+# Module-level used functions should not get optimized out.
+function bool private_used() { return False; }
+global x = private_used();
+
+# Public unused functions should get optimized out.
+public function bool public_unused() { return False; }
+
+# Extern functions should not get optimized out, regardless whether they are public or not.
+public function extern bool extern_unused1() { return False; }
+function extern bool extern_unused2() { return False; }
+
+# Pre-init and init functions are invoked by the driver and should not be removed.
+init function void test_init() {}
+preinit function void test_preinit() { }
+
+}

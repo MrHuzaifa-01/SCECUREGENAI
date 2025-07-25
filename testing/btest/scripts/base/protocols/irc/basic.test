@@ -1,0 +1,20 @@
+# This tests that basic IRC commands (NICK, USER, JOIN, DCC SEND)
+# are logged for a client.
+
+# @TEST-EXEC: zeek -b -r $TRACES/irc-dcc-send.trace %INPUT >out
+# @TEST-EXEC: btest-diff irc.log
+# @TEST-EXEC: btest-diff conn.log
+# @TEST-EXEC: btest-diff out
+
+@load base/protocols/conn
+@load base/protocols/irc
+
+event irc_names_info(c: connection, is_orig: bool, c_type: string, channel: string, users: string_set)
+	{
+	print "irc_names_info", channel, users;
+	}
+
+event irc_dcc_send_ack(c: connection, bytes_received: count)
+	{
+	print "irc_dcc_send_ack", bytes_received;
+	}

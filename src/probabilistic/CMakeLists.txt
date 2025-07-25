@@ -1,0 +1,13 @@
+zeek_add_subdir_library(
+    probabilistic
+    SOURCES
+    BitVector.cc
+    BloomFilter.cc
+    CardinalityCounter.cc
+    CounterVector.cc
+    Hasher.cc
+    Topk.cc
+    BIFS
+    bloom-filter.bif
+    cardinality-counter.bif
+    top-k.bif)

@@ -1,0 +1,15 @@
+
+#include "zeek/zeek-version.h"
+
+char version[] = "@ZEEK_VERSION_FULL_LOCAL@";
+
+// A C function that has the current version built into its name.
+// One can link a shared library against this to ensure that it won't
+// load if the version of the main Zeek binary differs compared to
+// what the library was compiled against.
+const char* ZEEK_VERSION_FUNCTION()
+{
+    return "@VERSION_C_IDENT@";
+}
+
+const char zeek_build_info[] = "@ZEEK_BUILD_INFO_ESCAPED@";

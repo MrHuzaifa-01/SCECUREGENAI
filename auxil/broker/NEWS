@@ -1,0 +1,213 @@
+Broker 2.6.0
+============
+
+- Add new feature that allows users to retrieve a status report about the
+  current state of Broker over HTTP in JSON format. This report gives a more
+  detailed picture than the metrics do, including information about attached
+  stores, the current connection state of a cluster, and more. The endpoint for
+  retrieving this report is ``/v1/status/json`` on the same port used for
+  metrics.
+
+- Fix a regression where the ``endpoint::peers()`` method was alwas returning a
+  status of ``connected`` for all peers. This is most noticable with zeekctl
+  when collecting and printing peer statuses.
+
+- Force static builds with the bundled version of CAF to ensure that all of the
+  dependencies between the various CAF targets are met.
+
+- Fix handling of fragmented WebSocket frames
+
+Broker 2.5.0
+============
+
+- Add interface include dirs to broker lib targets
+
+- Minimize messaging in sim_clock::advance_time
+
+- Update CAF submodule for SPCP buffer fix
+
+- Fix handling of peer/client errors
+
+- Implement graceful disconnect handshake
+
+- Add ``synchronous``, ``journal_mode``, ``failure_mode``, and
+  ``integrity_check`` options to the SQLite store backend.
+
+- Fix to use IPv6 mode for accept sockets by default
+
+- Add support for using Zeek-style port/protocol notation as arguments
+
+- Add support for building with GCC 13.
+
+Broker 2.4.0
+============
+
+- Fix CMake package file when bundling CAF
+
+- Fix a performance bottleneck in Broker-internal caching.
+
+- Improve performance with the ``stealing`` scheduler policy.
+
+- Fix messaging between clones and proxies that was resulting in an error
+  message being reported.
+
+- Fix a bug that prevented Broker nodes to recover from OpenSSL errors.
+
+- Fix handling of buffer sizes that caused Broker to stall despite having
+  sufficient capacity.
+
+- Add missing error signaling
+
+- Fix communication between Broker data stores.
+
+Broker 2.3.0
+============
+
+- Broker now requires at least CMake version 3.15.0.
+
+- Internally, much of Broker's transport layer has been rearchitected for better
+  maintainability and future functionality extensions. While this remains mostly
+  invisible to users, the changes had to break backwards compability with older
+  Broker versions.
+
+- Broker now offers access to its publish/subscribe layer via WebSocket in order
+  to make its data model accessible to third parties without requiring access to
+  Broker itself.
+
+  A Broker endpoint can be configured to act as a WebSocket server by either
+  setting the environment variable ``BROKER_WEB_SOCKET_PORT``; by setting
+  ``broker.web-socket.port`` on the command line or in the configuration file;
+  or programmatically by calling ``endpoint::web_socket_listen()``. See
+  ``docs/web-socket.rst`` for more information.
+
+  While still experimental for now, the WebSocket support (incl. the data model)
+  aims to remain stable over time and will become the recommended way for
+  external applications to talk to Broker applications (and hence Zeek).
+
+- The Python bindings now provide additional support for immutable (hashable)
+  types. The ``SafeSubscriber`` class and the corresponding
+  ``Endpoint.make_safe_subscriber()`` method ensure that immutable Python types
+  get used, and that the returned values remain read-only. For sets the
+  ``frozenset`` type achieves this; for mapping types it's
+  ``types.MappingProxyType``. The API now also supports the latter two types as
+  inputs.
+
+- All CAF dependencies have been removed from public headers, and we now build
+  the bundled CAF version as a static, private utility. Consumers of Broker no
+  longer need to locate CAF headers and we do not install any CAF content
+  alongside Broker anymore, i.e., Broker becomes fully standalone.
+
+  Where possible, Broker uses recent C++ additions like ``std::variant`` to
+  replace CAF types. For types that have no equivalent, Broker deploys fully
+  opaque handle types. For example, ``broker::worker`` internally wraps a
+  ``caf::actor`` handle.
+
+  All components in Broker that require access to CAF were grouped into the new
+  namespace ``broker::internal``. We omit all internal headers from an
+  installation, since they would be worthless without the matching CAF headers
+  anyways. This also gives us a clean separation between API artifacts users may
+  interact with and API parts that are reserved for internal use.
+
+Broker 2.2.0
+============
+
+- The Python bindings now provide a SafeSubscriber variant of Subscriber as well
+  as a new Endpoint.make_safe_subscriber() method. Both avoid potential problems
+  when deserializing values that accommodate the Broker data model but not
+  Python's. Specifically, Broker allows complex types inside others (e.g., a set
+  of tables), but Python does not support unhashable types for indexing, which'd
+  be required in this scenario. SafeSubscriber employs immutable (hashable)
+  types when translating to Python objects and returns objects that are
+  read-only.
+
+  If you haven't encountered problems with the Subscriber class, you don't need
+  to change existing code. Broker 3.0 will make this new behavior the default
+  and deprecate the new APIs. In the meantime you can replace make_subscriber()
+  with make_safe_subscriber() to be on the safe side.
+
+Broker 2.1.0
+============
+
+- Broker 2.1.0 now depends on CAF 0.18.4
+
+- The RocksDB data store backend was removed as building with it was previously
+  broken/unusable.
+
+- Added the ability to output metrics to Prometheus. This can be enabled by
+  setting the BROKER_METRICS_PORT environment variable. Currently the output
+  includes a number of CAF-related metrics and per-process CPU and Memory
+  metrics.
+
+Broker 2.0.0
+============
+
+- Broker 2.0.0 now depends on CAF 0.18.0 with a wire format targeting
+  compatibility with Zeek 4.0.x.
+
+- CMake 3.5+ is now required to compiler Broker.
+
+- Support for the optional Python Bindings now requires at least Python 3.5
+
+- For proper resource management/cleanup, the Python API now requires
+  using Endpoint, Subscriber, StatusSubscriber, and Store objects within a
+  `with` statement or alternatively doing an explicit call to the
+  `reset()` method of subscriber/store objects before the associated
+  Endpoint's `shutdown()` method.
+
+Broker 1.4.0
+============
+
+- Adds a new ``broker::store_event`` API that can be used to observe
+  data store modifications.
+
+- Adds support for Windows platform.
+
+- RocksDB support is now opt-in instead of automatically detected and used
+  at configuration-time.  Use the ``--enable-rocksdb`` and
+  ``--with-rocksdb=`` flags to opt-in.
+
+Broker 1.3.0
+============
+
+- A C++17-capable compiler and CMake 3.0+ are now required to compile Broker
+
+- Broker 1.3.0 depends on CAF 0.17.4.  Broker 1.2.x had depended on CAF 0.16.x,
+  whose wire format changed and is now incompatible with CAF 0.17.x.
+  Zeek 3.0.x shipped with Broker 1.2.x, which means Broker 1.3.x cannot be
+  used to communicate with Zeek 3.0.x, only 3.1.x (and possibly later, check
+  for updated release notes for compatibility clarifications).
+
+Broker 1.2.0
+============
+
+This release contains breaking API changes (for C++ code, not Python)
+in order to increase messaging efficiency via reduction of data
+copying.  Specifically:
+
+- ``broker::subscriber::get()`` now returns a different, copy-on-write
+  type called ``broker::data_message`` rather than an
+  ``std::pair<topic, data>``.  For example this old code::
+
+      auto sub = ep.make_subscriber({"/topic/test"});
+      auto msg = sub.get();
+      auto& topic = msg.first;
+      auto& data = msg.second
+
+  can be changed to::
+
+      auto sub = ep.make_subscriber({"/topic/test"});
+      auto msg = sub.get();
+      auto& topic = broker::get_topic(msg);
+      auto& data = broker::get_data(msg);
+
+- ``broker::endpoint::publish(vector)`` now takes a vector of the new
+  ``broker::data_message`` type, not ``std::pair<topic, data>``
+
+- Generally, all type aliases within classes, like
+  ``value_type = std::pair<topic, data>``, have been changed to use the
+  new ``broker::data_message`` type.
+
+- The semantics of message forwarding have changed slightly: the
+  first sender of the message is now the one that applies the initial
+  TTL value.  Previously, the first receiver would be the one to
+  apply the initial TTL.

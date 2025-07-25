@@ -1,0 +1,4 @@
+.. code-block:: none
+
+  # echo Hello, world!
+  Hello, world!

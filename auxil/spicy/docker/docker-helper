@@ -1,0 +1,39 @@
+#!/bin/bash
+# Copyright (c) 2020-2023 by the Zeek Project. See LICENSE for details.
+#
+# Helper for the Makefile to trigger Docker commands with the desired image.
+
+set -e
+
+usage() {
+    echo "usage: $(basename $0) build|run <platform>"
+    exit 1
+}
+
+test $# = 2 || usage
+
+version=$(cat ../VERSION)
+cmd=$1
+platform=$2
+
+if [ ! -e "Dockerfile.${platform}" ]; then
+    echo "Dockerfile.${platform} does not exist"
+    exit 1
+fi
+
+case "${cmd}" in
+    build)
+        DOCKER_BUILDKIT=1 docker build \
+            -t "spicy-${platform}:${version}" \
+            -f "Dockerfile.${platform}" .. || exit 1
+        docker tag \
+            "$(docker inspect --format='{{.Id}}' "spicy-${platform}:${version}")" \
+            "spicy-${platform}:latest"
+        ;;
+
+    run)
+        docker run --cap-add SYS_PTRACE --security-opt seccomp=unconfined -i -t "spicy-${platform}:latest" /bin/sh -l
+        ;;
+
+    *) usage;;
+esac
